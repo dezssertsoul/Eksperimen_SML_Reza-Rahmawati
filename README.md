@@ -6,9 +6,9 @@ Selamat datang di repositori eksperimen *Supervised Machine Learning* (SML) untu
 
 Untuk membaca detail laporan penugasan dan kriteria proyek, silakan klik tautan dokumen di bawah ini:
 
-1.  **[📁 Laporan Struktur Dokumentasi Berkas (Kriteria 1)](./DOKUMENTASI_BERKAS.md)**
-    Penjelasan isi file, folder, dan arsitektur repositori yang memenuhi kriteria *Skilled* hingga *Advance*.
-2.  **[🤖 Laporan Pelatihan & Pemilihan Model (Kriteria 2)](./MODEL_TRAINING.md)**
+1.  **[📁 Laporan Struktur Dokumentasi Berkas](./DOKUMENTASI_BERKAS.md)**
+    Penjelasan isi file, folder, dan arsitektur repositori.
+2.  **[🤖 Laporan Pelatihan & Pemilihan Model](./MODEL_TRAINING.md)**
     *Laporan ini disiapkan untuk mencatat hasil training, seleksi model, dan metrik evaluasi eksperimen.*
 
 ---
