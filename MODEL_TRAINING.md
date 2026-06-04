@@ -1,4 +1,4 @@
-# 🤖 Laporan Pelatihan & Pemilihan Model (Kriteria 2)
+# 🤖 Laporan Pelatihan & Pemilihan Model
 
 Dokumen ini dipisahkan khusus untuk mencatat perkembangan eksperimen pemodelan *Supervised Machine Learning*.
 
