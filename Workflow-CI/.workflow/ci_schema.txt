@@ -1,0 +1,6 @@
+# Skema Workflow CI - Penyimpanan Artefak & Trigger Re-Training
+Setiap kali berkas dataset_preprocessing.csv diperbarui (di-push), 
+Sistem GitHub Actions akan memicu otomatisasi:
+1. Menjalankan MLflow Project (`mlflow run Workflow-CI/MLProject`)
+2. Mengunduh artefak model terbaik (.pkl / MLmodel)
+3. Menyimpan dan meng-commit kembali file artefak tersebut secara otomatis ke dalam GitHub repository ini pada folder 'Workflow-CI/outputs/'
