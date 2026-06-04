@@ -20,14 +20,27 @@ jobs:
 
       - name: Execute Automation Script
         run: |
-          cd preprocessing
-          python3 automate_Reza-Rahmawati.py
-          cd ..
-
+          # Mencari file automate secara otomatis di seluruh folder dan mengeksekusinya
+          SCRIPT_PATH=$(find . -name "automate_Reza-Rahmawati.py" -print -quit)
+          if [ -z "$SCRIPT_PATH" ]; then
+            echo "[ERROR] Skrip automate_Reza-Rahmawati.py tidak ditemukan di repositori!"
+            exit 1
+          fi
+          echo "[-] Menjalankan skrip dari jalur: $SCRIPT_PATH"
+          # Masuk ke folder tempat file tersebut ditemukan, lalu eksekusi
+          cd $(dirname "$SCRIPT_PATH")
+          python3 $(basename "$SCRIPT_PATH")
+          
       - name: Commit and Push Updated Dataset
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action Bot"
-          git add preprocessing/dataset_preprocessing.csv
-          git diff-index --quiet HEAD || git commit -m "chore: automated dataset refresh by GitHub Actions"
-          git push
+          # Mencari file dataset hasil preprocessing secara dinamis untuk di-tracking
+          OUT_PATH=$(find . -name "dataset_preprocessing.csv" -print -quit)
+          if [ ! -z "$OUT_PATH" ]; then
+            git add "$OUT_PATH"
+            git diff-index --quiet HEAD || git commit -m "chore: automated dataset refresh by GitHub Actions"
+            git push
+          else
+            echo "[-] Tidak ada file output untuk di-commit."
+          fi
