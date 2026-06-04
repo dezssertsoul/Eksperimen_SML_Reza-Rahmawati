@@ -1,7 +1,7 @@
 name: Automated Preprocessing Pipeline
 on:
   push:
-    branches: [ main ]
+    branches: [ main ]  # Akan otomatis jalan setiap kali kamu melakukan commit/push di branch main
 
 jobs:
   run-pipeline:
@@ -20,14 +20,16 @@ jobs:
 
       - name: Execute Automation Script
         run: |
+          # Masuk ke folder tempat skrip berada, lalu jalankan Python
           cd preprocessing
           python3 automate_Reza-Rahmawati.py
-          cd ..
-
+          
       - name: Commit and Push Updated Dataset
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action Bot"
+          # Daftarkan file hasil preprocessing terbaru ke git tracking
           git add preprocessing/dataset_preprocessing.csv
+          # Lakukan commit hanya jika ada perubahan data baru agar tidak error
           git diff-index --quiet HEAD || git commit -m "chore: automated dataset refresh by GitHub Actions"
           git push
