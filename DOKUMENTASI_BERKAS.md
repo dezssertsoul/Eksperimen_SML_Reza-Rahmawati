@@ -1,4 +1,4 @@
-# 📁 Dokumentasi Berkas & Struktur Repositori (Kriteria 1)
+# 📁 Dokumentasi Berkas & Struktur Repositori
 
 Dokumen ini menjelaskan pembagian berkas secara terpisah untuk memenuhi standardisasi industri dan rubrik penilaian PIJAK.
 
