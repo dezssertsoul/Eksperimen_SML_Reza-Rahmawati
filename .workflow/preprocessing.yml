@@ -1,0 +1,12 @@
+name: Workflow Preprocessing (Local/Orchestrator)
+description: Pipeline preprocessing untuk Midterm_53_group
+
+steps:
+  - name: Load raw data
+    input: Midterm_53_group_raw/Midterm_53_group.csv
+
+  - name: Run preprocessing
+    command: python preprocessing/automate_Reza-Rahmawati.py --input Midterm_53_group_raw/Midterm_53_group.csv --output_dir preprocessing/processed
+
+  - name: Output
+    output: preprocessing/processed/Midterm_53_group_processed.csv
