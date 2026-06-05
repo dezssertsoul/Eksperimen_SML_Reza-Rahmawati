@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - 'Midterm_53_group_raw/**'
-      - 'preprocessing/automate_Reza-Rahmawati.py'
+      - 'preprocessing/automate_reza-rahmawati.py'
   workflow_dispatch:
 
 jobs:
@@ -25,7 +25,7 @@ jobs:
 
       - name: Run preprocessing script
         run: |
-          python preprocessing/automate_Reza-Rahmawati.py \
+          python preprocessing/automate_reza-rahmawati.py \
             --input Midterm_53_group_raw/Midterm_53_group.csv \
             --output_dir preprocessing/processed
 
