@@ -1,38 +1,38 @@
-name: Preprocessing Pipeline
+name: Data Preprocessing Automation
 
 on:
   push:
-    paths:
-      - 'Midterm_53_group_raw/**'
-      - 'preprocessing/automate_reza-rahmawati.py'
-  workflow_dispatch:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  preprocess:
+  build-and-run:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+    - name: Checkout Repository
+      uses: actions/checkout@v3
 
-      - name: Setup Python 3.12
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
+    - name: Set up Python 3.12.7
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12.7'
 
-      - name: Install dependencies
-        run: |
-          pip install pandas numpy scikit-learn
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
 
-      - name: Run preprocessing script
-        run: |
-          python preprocessing/automate_reza-rahmawati.py \
-            --input Midterm_53_group_raw/Midterm_53_group.csv \
-            --output_dir preprocessing/processed
+    - name: Run Automation Preprocessing
+      run: |
+        python preprocessing/automate_Reza-Rahmawati.py
 
-      - name: Commit result
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "actions@github.com"
-          git add preprocessing/processed/
-          git diff --staged --quiet || git commit -m "Auto-update: preprocessing done"
-          git push
+    - name: Upload Artifact Dataset Terbaru
+      uses: actions/upload-artifact@v4
+      with:
+        name: preprocessed-dataset
+        path: preprocessing/Midterm_53_group_preprocessed.csv
