@@ -1,46 +1,38 @@
-name: Automated Preprocessing Pipeline
+name: Preprocessing Pipeline
+
 on:
   push:
-    branches: [ main ]
+    paths:
+      - 'Midterm_53_group_raw/**'
+      - 'preprocessing/automate_Reza-Rahmawati.py'
+  workflow_dispatch:
 
 jobs:
-  run-pipeline:
+  preprocess:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-      - name: Set up Python Environment
-        uses: actions/setup-python@v4
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
-      - name: Install Preprocessing Libraries
-        run: pip install pandas scikit-learn
+      - name: Install dependencies
+        run: |
+          pip install pandas numpy scikit-learn
 
-      - name: Execute Automation Script
+      - name: Run preprocessing script
         run: |
-          # Mencari file automate secara otomatis di seluruh folder dan mengeksekusinya
-          SCRIPT_PATH=$(find . -name "automate_Reza-Rahmawati.py" -print -quit)
-          if [ -z "$SCRIPT_PATH" ]; then
-            echo "[ERROR] Skrip automate_Reza-Rahmawati.py tidak ditemukan di repositori!"
-            exit 1
-          fi
-          echo "[-] Menjalankan skrip dari jalur: $SCRIPT_PATH"
-          # Masuk ke folder tempat file tersebut ditemukan, lalu eksekusi
-          cd $(dirname "$SCRIPT_PATH")
-          python3 $(basename "$SCRIPT_PATH")
-          
-      - name: Commit and Push Updated Dataset
+          python preprocessing/automate_Reza-Rahmawati.py \
+            --input Midterm_53_group_raw/Midterm_53_group.csv \
+            --output_dir preprocessing/processed
+
+      - name: Commit result
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action Bot"
-          # Mencari file dataset hasil preprocessing secara dinamis untuk di-tracking
-          OUT_PATH=$(find . -name "dataset_preprocessing.csv" -print -quit)
-          if [ ! -z "$OUT_PATH" ]; then
-            git add "$OUT_PATH"
-            git diff-index --quiet HEAD || git commit -m "chore: automated dataset refresh by GitHub Actions"
-            git push
-          else
-            echo "[-] Tidak ada file output untuk di-commit."
-          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "actions@github.com"
+          git add preprocessing/processed/
+          git diff --staged --quiet || git commit -m "Auto-update: preprocessing done"
+          git push
