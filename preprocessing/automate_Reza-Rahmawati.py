@@ -3,10 +3,11 @@ import sys
 import pandas as pd
 
 def run_preprocessing():
-    input_path = 'Midterm_53_group.csv'
-    output_dir = 'preprocessing'
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    input_path = os.path.abspath(os.path.join(current_dir, '../Midterm_53_group.csv'))
+    output_dir = os.path.join(current_dir)
     output_path = os.path.join(output_dir, 'Midterm_53_group_preprocessed.csv')
-    
+        
     print(f"[INFO] Membaca data mentah dari: {input_path}")
     if not os.path.exists(input_path):
         print(f"[ERROR] File {input_path} tidak ditemukan! Pastikan posisi file benar.")
